@@ -11,6 +11,10 @@ body,
   background: white;
 }
 
+h3{
+  color: rgb(113, 5, 5);
+}
+
 /* main page */
 
 .list-books-title {
@@ -127,13 +131,13 @@ body,
 }
 .book-title,
 .book-authors {
-  font-size: 0.8em;
+  font-size: 0.5em;
 }
 .book-title {
   margin-top: 10px;
 }
 .book-authors {
-  color: #999;
+  color: black;
 }
 
 .book-top {

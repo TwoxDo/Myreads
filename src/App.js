@@ -10,6 +10,8 @@ function App() {
 
   const [books, setBooks] = useState([])
   useEffect(() => {
+
+
     BooksAPI.getAll()
       .then(data => { setBooks(data) });
   }, [])
@@ -35,13 +37,13 @@ function App() {
             <div>
               <Home updateCategory={updateCategory} books={books} />
               <div className="open-search">
-                <Link className="open-search" to="/adding"></Link>
+                <Link className="open-search" to="/search"></Link>
               </div>
             </div>
           } />
-<Route path='/adding' element={
-<Adding books={books} 
-updateCategory={updateCategory} />} />
+          <Route path='/search' element={
+            <Adding books={books}
+              updateCategory={updateCategory} />} />
         </Routes>
 
       </BrowserRouter>

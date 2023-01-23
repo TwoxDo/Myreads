@@ -8,22 +8,25 @@ export default function Adding({ books, updateCategory }) {
     const [term, setTerm] = useState("");
     const [search, setSearch] = useState([]);
     useEffect(() => {
-        let onMount = true;
         const result = async () => {
             if (term) {
                 const findingBook = await BooksAPI.search(term)
                 if (findingBook.error) {
                     setSearch([])
-                } else if (onMount) {
+                } else {
+                    findingBook.forEach(findedBook => {
 
-
-                    setSearch(findingBook.map(setSearch => {
                         books.forEach((Currentbook) => {
-                            if (search.title === Currentbook.title) { search.shelf = Currentbook.shelf }
+
+                            if (findedBook.id === Currentbook.id) 
+                            { findedBook.shelf = Currentbook.shelf 
+                            }
+
                         });
-                        return setSearch
+
+                       
                     })
-                    )
+                    setSearch(findingBook)
                 }
             }
         }
@@ -33,7 +36,6 @@ export default function Adding({ books, updateCategory }) {
             search.shelf = "none";
         }
         return () => {
-            onMount = false;
             setSearch([]);
         }
     }, [term,books])
@@ -58,12 +60,15 @@ export default function Adding({ books, updateCategory }) {
             </div>
             <div className="search-books-results">
                 <ol className="books-grid">
-                    {
-                        search.map((current) =>
-                            <li key={current.id}>
-                                <Book data={current} updateCategory={updateCategory} />
-                            </li>
-                        )}
+
+
+                    {search.map(current => (
+                        <Book
+                            key={current.id}
+                            books={current}
+                            updateCategory={updateCategory}
+                        />
+                    ))}
                 </ol>
             </div>
         </div>
